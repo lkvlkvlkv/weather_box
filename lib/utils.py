@@ -156,8 +156,7 @@ def display_LED(numpix):
     # only show numpix of LEDs
     while True:
         for i in range(16):
-            colors = (led_arr[(i) % 8], led_arr[(i+1) % 8], led_arr[(i+2) % 8], led_arr[(i+3) %
-                    8], led_arr[(i+4) % 8], led_arr[(i+5) % 8], led_arr[(i+6) % 8], led_arr[(i+7) % 8])[:numpix]
+            colors = (led_arr[i%8:] + led_arr[:i%8])[:numpix]
 
             for index, color in enumerate(colors):
                 neo.set_pixel(index, color)
@@ -171,8 +170,9 @@ def display_LED(numpix):
             neo.show()
             sleep(0.3)
         for i in range(16):
-            colors = (led_arr[(i) % 8], led_arr[(i+7) % 8], led_arr[(i+6) % 8], led_arr[(i+5) %
-                    8], led_arr[(i+4) % 8], led_arr[(i+3) % 8], led_arr[(i+2) % 8], led_arr[(i+1) % 8])[:numpix]
+            colors = (led_arr[i%8:] + led_arr[:i%8])
+            colors.reverse()
+            colors = colors[:numpix]
 
             for index, color in enumerate(colors):
                 neo.set_pixel(index, color)
